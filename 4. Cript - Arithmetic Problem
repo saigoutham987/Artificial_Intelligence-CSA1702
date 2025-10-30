@@ -1,0 +1,18 @@
+import itertools
+w1="SEND"
+w2="MORE"
+res="MONEY"
+l=set(w1+w2+res)
+for p in itertools.permutations(range(10),len(l)):
+    m=dict(zip(l,p))
+    if m['S']==0 or m['M']==0:
+        continue
+    a=sum(m[w1[i]]*10**(3-i) for i in range(4))
+    b=sum(m[w2[i]]*10**(3-i) for i in range(4))
+    c=sum(m[res[i]]*10**(4-i) for i in range(5))
+    if a+b==c:
+        print(a,"+",b,"=",c)
+        break
+
+OUTPUT
+9567 + 1085 = 10652
