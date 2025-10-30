@@ -1,0 +1,85 @@
+board=[' ']*9
+def check(b):
+    lines=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]
+    for a,b,c in lines:
+        if b[a]==b[b]==b[c] and b[a]!=' ':
+            return b[a]
+    if ' ' not in b: return 'Draw'
+    return None
+def minimax(b,player,alpha,beta):
+    r=check(b)
+    if r=='X': return 1
+    if r=='O': return -1
+    if r=='Draw': return 0
+    if player=='X':
+        best=-float('inf')
+        for i in range(9):
+            if b[i]==' ':
+                b[i]='X'
+                best=max(best,minimax(b,'O',alpha,beta))
+                b[i]=' '
+                alpha=max(alpha,best)
+                if beta<=alpha: break
+        return best
+    else:
+        best=float('inf')
+        for i in range(9):
+            if b[i]==' ':
+                b[i]='O'
+                best=min(best,minimax(b,'X',alpha,beta))
+                b[i]=' '
+                beta=min(beta,best)
+                if beta<=alpha: break
+        return best
+def best_move():
+    best_val=-float('inf')
+    move=-1
+    for i in range(9):
+        if board[i]==' ':
+            board[i]='X'
+            val=minimax(board,'O',-float('inf'),float('inf'))
+            board[i]=' '
+            if val>best_val:
+                best_val=val
+                move=i
+    return move
+def play():
+    turn='X'
+    while True:
+        for i in range(0,9,3):
+            print(board[i],'|',board[i+1],'|',board[i+2])
+        if turn=='X':
+            board[best_move()]='X'
+        else:
+            m=int(input("O's move (0-8): "))
+            if board[m]!=' ': continue
+            board[m]='O'
+        r=check(board)
+        if r:
+            for i in range(0,9,3):
+                print(board[i],'|',board[i+1],'|',board[i+2])
+            print("Winner:",r)
+            break
+        turn='O' if turn=='X' else 'X'
+play()
+
+
+OUTPUT
+  |   |  
+  |   |  
+  |   |  
+O's move (0-8): 0
+O |   |  
+  |   |  
+  |   |  
+X |   |  
+  |   |  
+  |   |  
+O's move (0-8): 4
+X |   |  
+  | O |  
+  |   |  
+X |   |  
+  |   |  
+  |   |  
+Winner: X
