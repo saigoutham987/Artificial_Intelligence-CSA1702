@@ -1,0 +1,29 @@
+from collections import deque
+graph = {
+    'A':['B','C'],
+    'B':['D','E'],
+    'C':['F'],
+    'D':[],
+    'E':['F'],
+    'F':[]
+}
+def bfs(start):
+    visited=set()
+    q=deque([start])
+    visited.add(start)
+    while q:
+        node=q.popleft()
+        print(node)
+        for n in graph[node]:
+            if n not in visited:
+                visited.add(n)
+                q.append(n)
+bfs('A')
+
+OUTPUT
+A
+B
+C
+D
+E
+F
