@@ -1,0 +1,50 @@
+board = [' ']*9
+def print_board():
+    for i in range(0,9,3):
+        print(board[i],'|',board[i+1],'|',board[i+2])
+def check():
+    lines=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]
+    for a,b,c in lines:
+        if board[a]==board[b]==board[c] and board[a]!=' ':
+            return board[a]
+    if ' ' not in board:
+        return 'Draw'
+    return None
+def play():
+    turn='X'
+    while True:
+        print_board()
+        move=int(input(f"{turn}'s move (0-8): "))
+        if board[move]==' ':
+            board[move]=turn
+        else:
+            continue
+        result=check()
+        if result:
+            print_board()
+            print("Winner:",result)
+            break
+        turn='O' if turn=='X' else 'X'
+play()
+
+OUTPUT
+X |   |  
+  |   |  
+  |   |  
+O's move (0-8): 1
+X | O |  
+  |   |  
+  |   |  
+X's move (0-8): 3
+X | O |  
+X |   |  
+  |   |  
+O's move (0-8): 4
+X | O |  
+X | O |  
+  |   |  
+X's move (0-8): 6
+X | O |  
+X | O |  
+X |   |  
+Winner: X
