@@ -1,0 +1,50 @@
+from collections import deque
+
+goal = '123456780'
+
+def move(s, i, j):
+    s = list(s)
+    s[i], s[j] = s[j], s[i]
+    return ''.join(s)
+
+def neighbors(s):
+    i = s.index('0')
+    moves = []
+    if i not in [0,1,2]: moves.append(move(s,i,i-3))
+    if i not in [6,7,8]: moves.append(move(s,i,i+3))
+    if i not in [0,3,6]: moves.append(move(s,i,i-1))
+    if i not in [2,5,8]: moves.append(move(s,i,i+1))
+    return moves
+
+def bfs(start):
+    q = deque([(start, [])])
+    seen = {start}
+    while q:
+        s, path = q.popleft()
+        if s == goal:
+            return path + [s]
+        for n in neighbors(s):
+            if n not in seen:
+                seen.add(n)
+                q.append((n, path + [s]))
+    return None
+
+start = '123406758'
+path = bfs(start)
+for state in path:
+    for i in range(0,9,3):
+        print(state[i:i+3])
+    print()
+
+OUTPUT
+123
+406
+758
+
+123
+456
+708
+
+123
+456
+780
