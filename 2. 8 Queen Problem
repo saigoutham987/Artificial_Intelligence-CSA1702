@@ -1,0 +1,40 @@
+n=8
+def safe(s,r):
+    for i in range(r):
+        if s[i]==s[r] or abs(s[i]-s[r])==abs(i-r):
+            return False
+    return True
+def queen(r,s):
+    if r==n:
+        for i in range(n):
+            row=['.']*n
+            row[s[i]]='Q'
+            print(' '.join(row))
+        print()
+        return
+    for i in range(n):
+        s[r]=i
+        if safe(s,r):
+            queen(r+1,s)
+queen(0,[0]*n)
+
+OUTPUT
+Q . . . . . . .
+. . . . Q . . .
+. . . . . . . Q
+. . . Q . . . .
+. . Q . . . . .
+. . . . . Q . .
+. Q . . . . . .
+. . . . . . Q .
+
+Q . . . . . . .
+. . . . . Q . .
+. . . Q . . . .
+. . . . . . Q .
+. Q . . . . . .
+. . . . Q . . .
+. . Q . . . . .
+. . . . . . Q .
+
+...
