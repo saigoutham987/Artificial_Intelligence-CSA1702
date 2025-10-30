@@ -1,0 +1,32 @@
+from collections import deque
+def waterjug(x,y,target):
+    q=deque()
+    v=set()
+    q.append((0,0))
+    v.add((0,0))
+    while q:
+        a,b=q.popleft()
+        print(a,b)
+        if a==target or b==target:
+            print("Reached Target")
+            return
+        ns=[(x,b),(a,y),(0,b),(a,0)]
+        p=min(a,y-b)
+        ns.append((a-p,b+p))
+        p=min(b,x-a)
+        ns.append((a+p,b-p))
+        for s in ns:
+            if s not in v:
+                v.add(s)
+                q.append(s)
+waterjug(4,3,2)
+
+
+OUTPUT
+0 0
+4 0
+0 3
+4 3
+1 3
+4 2
+Reached Target
